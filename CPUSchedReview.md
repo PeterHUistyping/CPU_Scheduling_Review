@@ -12,7 +12,7 @@ Paper Selection -- Taxonomy label -- Filter -- Annotate -- Summary
 
 Ref: Systematic Literature Review (Webster&Watson, 2002)
 
-- [File Name Taxonomy](./FileNameTaxonomy.md)
+- [File Name Taxonomy](./Goal/FileNameTaxonomy.md)
 
 # Literature Review navigation by methods
 
