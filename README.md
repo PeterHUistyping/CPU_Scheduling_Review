@@ -95,7 +95,7 @@ Model with Algorithm design
 
 ## Appendix A: HMP-Product-related improvements on EAS
 
-[HMP-EAS-Improvements (First-Draft)  --- Details ---](./DVFS/HMP-EAS-Improvements(First-Draft).md)
+[HMP-EAS-Improvements (First-Draft)  --- Details ---](./DVFS/HMP-EAS-Improvements.md)
 
 ## Appendix B: Tools for Power Monitoring and/or Power Controlling
 
