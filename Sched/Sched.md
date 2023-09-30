@@ -24,9 +24,9 @@ The primitives (parallel for-loops, omp task and fork/join or spawn/sync) in Par
 
 - from DAG -> Parallel Synchronous Task -> Task with its [start, end].
 - with all the dependencies (edges in the DAG) respected
-<p>
+ 
 <img src="./Pic/TaskDecomp-DAG.png" alt="DAG" height="100px"/>
-</p>
+ 
 <img src="./Pic/TaskDecomp-Res.png" alt="Res" height="150px"/>
 
 ## Scheduling Algorithm
