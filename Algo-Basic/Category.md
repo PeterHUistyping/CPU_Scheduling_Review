@@ -1,18 +1,14 @@
 ## Category
 - Online / Offline Algorithm
-
   - Offline: all jobs and their characteristics are known in advance (entire input available from the start)
   - Online may use heuristics from offline algorithm
   - Compare using Competitive Ratio
     - an online algorithm c-competitive if, for any sequence of jobs, the incurred energy is upper bounded by c times the optimum energy for that sequence.
 - Continuous / Discrete Speed Model
-
   - Continuous: the processor speed may be set at any real value.
 - Uniform / Variable Frequency Setting
-
   - Uniform: the operating frequencies of all the cores are the same. For such systems, when DFS is applied, the core frequencies are varied uniformly.
 - Task Model
-
   - Periodic / Aperiodic
   - Preemption / Non-preemption
   - Migration / Non-migration
@@ -21,6 +17,5 @@
     - $ r_i \geq r_j  \implies d_i \geq d_j$
 - Real platform
 - Application area
-
   - Media
   - ...

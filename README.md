@@ -4,7 +4,7 @@
 
 (SCP, SMP, HMP) CPU Scheduling Model and Algorithm / Architectural design.
 
-## [Background](./Goal/HMPSchedinbig.LITTLEContext.md)
+## [Background](./Goal/HMPSchedinbig.LITTLEContext.html)
 
 ## Pipeline for Literature Review
 
@@ -12,13 +12,13 @@ Paper Selection -- Taxonomy label -- Filter -- Annotate -- Summary
 
 Ref: Systematic Literature Review (Webster&Watson, 2002)
 
-- [File Name Taxonomy](./Goal/FileNameTaxonomy.md)
+- [File Name Taxonomy](./Goal/FileNameTaxonomy.html)
 
 # Literature Review navigation by methods
 
-- [CPU Power Model Focus](Algo-Basic/ModelFocus.md)
+- [CPU Power Model Focus](Algo-Basic/ModelFocus.html)
 
-- [Category](Algo-Basic/Category.md)
+- [Category](Algo-Basic/Category.html)
 
 ## Efficient CPU resources operating Methods
 
@@ -29,7 +29,7 @@ Ref: Systematic Literature Review (Webster&Watson, 2002)
 * Energy Effiency in HMP (with inter/intra-Migration)
 * Consider for related factors (Temp, Resource Contentions, fairness, etc)
 
-[Scheduler / Scheduling Algorithm  --- Details ---](Sched/Sched.md)
+[Scheduler / Scheduling Algorithm  --- Details ---](Sched/Sched.html)
 
 ## 2. DVFS (cpufreq governor)
 
@@ -48,13 +48,13 @@ Resource Slowdown
 
 - The energy minimization problem of scheduling n tasks with release times and deadlines on a single-core processor that can vary its speed dynamically where preemption is allowed.
 
-[Single Core DVFS from 1995 --- Details ---](./DVFS/SCP-DVFS-from-1995.md)
+[Single Core DVFS from 1995 --- Details ---](./DVFS/SCP-DVFS-from-1995.html)
 
 *Multi-Core (MP)*
 
 - proved the NP-hardness of the multi-core DVS problem when tasks could not migrate and gave several approximation algorithms for various special cases.
 
-[Multi-core DVFS --- Details ---](./DVFS/MP-DVFS.md)
+[Multi-core DVFS --- Details ---](./DVFS/MP-DVFS.html)
 
 *Heterogeneous Multi-Core (HMP)*
 
@@ -78,7 +78,7 @@ Resource Shutdown / Dynamic Power Management / Idle Management
   - Problems: switching between idle and active state exists cost.
 - Dynamic Resource Sleep management: min-gap strategy.
 
-[DRS  --- Details ---](./DRS/DRS.md)
+[DRS  --- Details ---](./DRS/DRS.html)
 
 More along this line can be found in the *Surveys ( 2010, 2011, S. Albers )*
 
@@ -87,15 +87,15 @@ More along this line can be found in the *Surveys ( 2010, 2011, S. Albers )*
 
 Model with Algorithm design
 
-- [Thermal Model and DVFS Algorithm --- Details ---](./DVFS/DVFS-Thermal-Models.md)
+- [Thermal Model and DVFS Algorithm --- Details ---](./DVFS/DVFS-Thermal-Models.html)
 
-- [Memory Model and DVFS Algorithm  --- Details ---](./DVFS/DVFS-Memory-Models.md)
+- [Memory Model and DVFS Algorithm  --- Details ---](./DVFS/DVFS-Memory-Models.html)
 
-- [HMP Models (TODO) --- Details ---](./DVFS/HMP-DVFS-ToDo.md)
+- [HMP Models (TODO) --- Details ---](./DVFS/HMP-DVFS-ToDo.html)
 
 ## Appendix A: HMP-Product-related improvements on EAS
 
-[HMP-EAS-Improvements (First-Draft)  --- Details ---](./DVFS/HMP-EAS-Improvements.md)
+[HMP-EAS-Improvements (First-Draft)  --- Details ---](./DVFS/HMP-EAS-Improvements.html)
 
 ## Appendix B: Tools for Power Monitoring and/or Power Controlling
 

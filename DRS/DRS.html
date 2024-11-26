@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Power-management Paradigm Choice</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <h1 id="power-management-paradigm-choice">Power-management Paradigm Choice</h1>
+<h3 id="1-race-to-halt">1. Race-to-halt</h3>
+<ul>
+<li>It uses the <strong>highest performance state</strong> to complete the work, and immediately attempts to power down DVFS states</li>
+<li>rely on the assumption that tasks are compute bound (versus memory bound).</li>
+</ul>
+<p>[17] M.A.AwanandS.M.Petters,“Enhancedrace-to-halt:Aleakage-aware energy management approach for dynamic priority systems,” in 23rd Euromicro Conference on Real-Time Systems, Jul. 2011, pp. 92–101.</p>
+<h3 id="2-race-to-idle">2. Race-to-idle</h3>
+<ul>
+<li>Modern processors can quickly power down regions of the CPU (power-gating)</li>
+<li>When a system is idle, it can be transitioned into a low-power sleep state by creating an idke period</li>
+<li>Problems: switching between idle and active state exists cost</li>
+<li>Goal: idle period is <strong>long</strong> enough (the energy savings in sleep state &gt;  transition cost to the on state.)</li>
+<li>Tasks are memory-bound and need to be preemptive</li>
+</ul>
+<p><a href="../SMP/SMP-AM-2006-Taiwan-Chen-Leakage.pdf">SMP-AM-2006-Taiwan-Chen-Leakage</a> Leakage-aware energy-efficient scheduling of real-time tasks in multiprocessor systems, J.-J. Chen, H.-R. Hsu, T.-W. Kuo, Proceedings of IEEE Real- Time and Embedded Technology and Applications Symposium (RTAS), 2006, pp. 408–417.</p>
+<ul>
+<li>When the overheads in turning on/off a processor are negligible
+<ul>
+<li>polynomial-time algorithm with a 1.283 approximation bound is proposed</li>
+</ul>
+</li>
+<li>When the overheads are non-negligible
+<ul>
+<li>polynomial-time algorithms with a 2 approximation bound</li>
+</ul>
+</li>
+</ul>
+<p><em>Dynamic Speed Scaling with Sleep state (DSS-S) ---  The first to combine DVFS + DRS</em></p>
+<p><a href="../SCP/SCP-AM-2007-California_Irani-Sleep.pdf">SCP-AM-2007-California_Irani-Sleep</a></p>
+<ul>
+<li>Model : Processor state, Power P(0)</li>
+<li>Goal : <strong>minize critical speed</strong></li>
+<li>an offline algorithm that is within a factor of 2 of the optimal algorithm.</li>
+<li>an online algorithm with a constant competitive ratio.</li>
+</ul>
+<p>S. Irani, S. Shukla, R. Gupta, Algorithms for power savings, ACM Trans. Algorithms 3 (4) (2007).</p>
+<h4 id="appendix1">Appendix1</h4>
+<p><a href="../SCP/SCP-AM-2012-France-Bampis-Hibernate.pdf">SCP-AM-2012-France-Bampis-Hibernate</a></p>
+<p>E. Bampis, C. Dürr, F. Kacem, I. Milis, Speed scaling with power down scheduling for agreeable deadlines, Sustain. Comput., Inform. Syst. 2 (4) (2012) 184–189.</p>
+<p><a href="./Albers-2014-Race-to-Idle.pdf">Race to idle: New algorithms for speed scaling with a sleep state</a> S. Albers and A. Antoniadis, ACM Trans. Algorithms, vol. 10, no. 2, pp. 9:1–9:31, Feb. 2014.</p>
+<p><a href="../SCP/SCP-AM-2019-Germany_Antoniadis-Sleep.pdf">SCP-AM-2019-Germany_Antoniadis-sleep</a></p>
+<p>A. Antoniadis, C. Huang, S. Ott, A fully polynomial-time approximation scheme for speed scaling with a sleep state, Algorithmica 81 (9) (2019) 3725–3745.</p>
+<h4 id="min-gap-in-execution-for-gap-scheduling">min-gap in execution for Gap Scheduling</h4>
+<ul>
+<li>the device goes into a sleep state whenever it is idle</li>
+<li>Objective : <strong>minimize the total number of transitions</strong>
+<ul>
+<li>the time spent in the active state is fixed by the input jobs</li>
+<li>stronger goal from the point of view of approximation algorithms</li>
+</ul>
+</li>
+</ul>
+<p><a href="../SCP/SCP-2006-Unit_Tasks_Min_IdlePeriodsNum_Offline.pdf">SCP-2006-Unit_Tasks_Min_IdlePeriodsNum_Offline</a> Scheduling unit tasks to minimize the number of idle periods: a polynomial time algorithm for offline dynamic power management,P. Baptiste, Proceedings of the 17th Annual ACM-SIAM (SODA), 2006, pp. 364–367.</p>
+<ul>
+<li>The optimal schedule bound, prove by contradiction</li>
+<li>Dynamic Programming</li>
+</ul>
+<p><a href="../SMP/SMP-2013-Minimize_Gaps.pdf">SMP-2013-Minimize_Gaps</a>  Scheduling to minimize gaps and power consumption, E.D. Demaine, M. Ghodsi, M. Hajiaghayi, A.S. Sayedi-Roshkhar, M. Zadimoghaddam, J. Sched. 16 (2) (2013) 151–160.</p>
+<ul>
+<li>a special case of the multi-interval problem</li>
+</ul>
+<h4 id="appendix2">Appendix2</h4>
+<p>[15] P. Baptiste, M. Chrobak, C. Dürr, Polynomial-time algorithms for minimum energy scheduling, ACM Trans. Algorithms 8 (3) (2012) 26:1–26:29.</p>
+<p>[16] E. Angel, E. Bampis, V. Chau, Low complexity scheduling algorithms minimizing the energy for tasks with agreeable deadlines, Discrete Appl. Math. 175 (2014) 1–10.</p>
+<h3 id="3-ml-based-adjustment-between-these-two-ideas">3. ML-based adjustment between these two ideas</h3>
+<p>Advantage of <em>machine-learning</em></p>
+<ul>
+<li>Converge to race-to-halt considering the workload/system combination, while still being able to adjust for more memory-bound or mixed workloads.</li>
+</ul>
+<p>Two closest related areas of modern power management related to our work are QoSM middleware and machine learning-based power managers.</p>
+<p><a href="../HMP/HMP-SArch-2021-ETH_Giardino-Q-Learner_QoS_Manager.pdf">HMP-SArch-2021-ETH_Giardino-Q-Learner_QoS_Manager</a></p>
+<p>2QoSM: A Q-Learner QoS Manager for Application-Guided Power-Aware Systems</p>
+<ul>
+<li>an abstraction of physical system performance (communication and path error), application state, and power consumption into a unitless state vector</li>
+<li>a C-based Q-learner-based Quality-of-Service Manager (2QoSM) that takes the state vector, and learns policies for system power management based upon tunable reward functions</li>
+<li>an evaluation of the 2QoSM on a MCSoC at the center of a power-constrained mobile robot showing significant improvement over both standard Linux power management and a state-of-the-art application-guided governor</li>
+<li>a demonstration of the utility of application, hardware, and policy agnostic middleware for embedded power management</li>
+</ul>
+<h4 id="appendix3-ml-method">Appendix3: ML method</h4>
+<pre><code>-----  Appendix : List of related literature ----
+</code></pre>
+<p><em>Reinforcement Learning</em>[25] A. Das, M. J. Walker, A. Hansson, B. M. Al-Hashimi, and G. V. Merrett, “Hardware-software interaction for run-time power optimization: A case study of embedded linux on multicore smartphones,” in 2015 IEEE/ACM International Symposium on Low Power Electronics and Design (ISLPED). IEEE, Jul. 2015, pp. 165–170.</p>
+<ul>
+<li>optimal power state of a CPU</li>
+</ul>
+<p>[26] J. F. Martinez and E. Ipek, “Dynamic multicore resource management: A machine learning approach,” IEEE Micro, vol. 29, no. 5, pp. 8–17, Sep. 2009.</p>
+<ul>
+<li>make low-level power management decisions including DRAM scheduling and multiresource allocation</li>
+</ul>
+<p>[27] R. Ye and Q. Xu, “Learning-based power management for multicore pro- cessors via idle period manipulation,” IEEE Transactions on Computer- Aided Design of Integrated Circuits and Systems, vol. 33, no. 7, pp. 1043–1055, Jul. 2014.</p>
+<ul>
+<li>optimize idle periods to reduce power consumption in simulations of synthetic benchmarks, with goal to reduce transitions</li>
+</ul>
+<p>[28] H. Shen, Y. Tan, J. Lu, Q. Wu, and Q. Qiu, “Achieving autonomous power management using reinforcement learning,” ACM Trans. Des. Autom. Electron. Syst., vol. 18, no. 2, pp. 24:1–24:32, Apr. 2013.</p>
+<ul>
+<li>pick DVFS states by constraining the performance and temperature while minimizing the total energy</li>
+</ul>
+<p>[29] Y. Ge and Q. Qiu, “Dynamic thermal management for multimedia applications using machine learning,” in Proceedings of the 48th Design Automation Conference, ser. DAC ’11. New York, NY, USA: ACM, Jun. 2011, pp. 95–100.</p>
+<ul>
+<li>CPU metrics, user-constraints, and processor temperature for determining state and reward</li>
+</ul>
+<p>[30] A. Das, B. M. Al-Hashimi, and G. V. Merrett, “Adaptive and hierarchical runtime manager for energy-aware thermal management of embedded systems,” ACM Trans. Embed. Comput. Syst., vol. 15, no. 2, pp. 24:1– 24:25, Jan. 2016.</p>
+<ul>
+<li>Q-Learner to allocate threads and set CPU frequency to obtain a given performance target [30]. Their work is focused on thermal limits and performance targets are time- based deadlines</li>
+</ul>
+<p>[31] U. Gupta, S. K. Mandal, M. Mao, C. Chakrabarti, and U. Y. Ogras, “A deep q-learning approach for dynamic management of heterogeneous processors,” IEEE Computer Architecture Letters, vol. 18, no. 1, pp. 14–17, Jan. 2019.</p>
+<ul>
+<li>
+<p>Deep Q-Learning (DQL) was used on a similar big.LITTLE single-board computer to obtain near- optimal performance per watt</p>
+<p>-----  Appendix : List of related literature ----</p>
+</li>
+</ul>
+
+            
+            
+        </body>
+        </html>

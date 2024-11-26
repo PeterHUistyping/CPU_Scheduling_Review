@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>CPU Scheduling Literature Review</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <!-- Draft version by Peter HU -->
+<h1 id="cpu-scheduling-literature-review">CPU Scheduling Literature Review</h1>
+<p>(SCP, SMP, HMP) CPU Scheduling Model and Algorithm / Architectural design.</p>
+<h2 id="background"><a href="./Goal/HMPSchedinbig.LITTLEContext.html">Background</a></h2>
+<h2 id="pipeline-for-literature-review">Pipeline for Literature Review</h2>
+<p>Paper Selection -- Taxonomy label -- Filter -- Annotate -- Summary</p>
+<p>Ref: Systematic Literature Review (Webster&amp;Watson, 2002)</p>
+<ul>
+<li><a href="./Goal/FileNameTaxonomy.html">File Name Taxonomy</a></li>
+</ul>
+<h1 id="literature-review-navigation-by-methods">Literature Review navigation by methods</h1>
+<ul>
+<li>
+<p><a href="Algo-Basic/ModelFocus.html">CPU Power Model Focus</a></p>
+</li>
+<li>
+<p><a href="Algo-Basic/Category.html">Category</a></p>
+</li>
+</ul>
+<h2 id="efficient-cpu-resources-operating-methods">Efficient CPU resources operating Methods</h2>
+<h2 id="1-scheduler-os">1. Scheduler (OS)</h2>
+<ul>
+<li>different Task Models for CPU tasks (individual, parallel or with dependencies)</li>
+<li>Scheduling algorithm (List, Federated algorithm, etc)</li>
+<li>Energy Effiency in HMP (with inter/intra-Migration)</li>
+<li>Consider for related factors (Temp, Resource Contentions, fairness, etc)</li>
+</ul>
+<p><a href="Sched/Sched.html">Scheduler / Scheduling Algorithm  --- Details ---</a></p>
+<h2 id="2-dvfs-cpufreq-governor">2. DVFS (cpufreq governor)</h2>
+<p>Resource Slowdown</p>
+<ul>
+<li>Energy-Delay tradeoff
+<ul>
+<li>quadratic relationship between voltage and dynamic power ↓</li>
+<li>whereas a linear relationship between voltage and delay ↑.</li>
+</ul>
+</li>
+<li>Problems
+<ul>
+<li>More leakage energy</li>
+<li>Memory and other IO interfaces need to be active</li>
+</ul>
+</li>
+</ul>
+<p><em>Single Core from 1995 (SCP)</em></p>
+<pre><code>Math Model and Algorithm Design, with some extensiable to HMP
+</code></pre>
+<ul>
+<li>The energy minimization problem of scheduling n tasks with release times and deadlines on a single-core processor that can vary its speed dynamically where preemption is allowed.</li>
+</ul>
+<p><a href="./DVFS/SCP-DVFS-from-1995.html">Single Core DVFS from 1995 --- Details ---</a></p>
+<p><em>Multi-Core (MP)</em></p>
+<ul>
+<li>proved the NP-hardness of the multi-core DVS problem when tasks could not migrate and gave several approximation algorithms for various special cases.</li>
+</ul>
+<p><a href="./DVFS/MP-DVFS.html">Multi-core DVFS --- Details ---</a></p>
+<p><em>Heterogeneous Multi-Core (HMP)</em></p>
+<p><strong>Category for HMP</strong></p>
+<ul>
+<li>from the program count perspective,
+<ul>
+<li>single program (programs per core &lt;= 1)</li>
+<li>multi-programs (programs per core &gt; 1)</li>
+</ul>
+</li>
+<li>from the application type perspective,
+<ul>
+<li>serial</li>
+<li>parallel</li>
+</ul>
+</li>
+</ul>
+<p>Ref: Fairness-Aware Energy Efficient Scheduling on Heterogeneous Multi-Core Processors (2021).</p>
+<h2 id="3-dynamic-resource-sleep-os">3. Dynamic Resource Sleep (OS)</h2>
+<p>Resource Shutdown / Dynamic Power Management / Idle Management</p>
+<ul>
+<li>
+<p>When a system is idle, it can be transitioned into a low-power sleep state.</p>
+<ul>
+<li>Problems: switching between idle and active state exists cost.</li>
+</ul>
+</li>
+<li>
+<p>Dynamic Resource Sleep management: min-gap strategy.</p>
+</li>
+</ul>
+<p><a href="./DRS/DRS.html">DRS  --- Details ---</a></p>
+<p>More along this line can be found in the <em>Surveys ( 2010, 2011, S. Albers )</em></p>
+<h2 id="4-the-system-wide-energy-saving-model">4. The System-Wide Energy-Saving Model</h2>
+<p>Model with Algorithm design</p>
+<ul>
+<li>
+<p><a href="./DVFS/DVFS-Thermal-Models.html">Thermal Model and DVFS Algorithm --- Details ---</a></p>
+</li>
+<li>
+<p><a href="./DVFS/DVFS-Memory-Models.html">Memory Model and DVFS Algorithm  --- Details ---</a></p>
+</li>
+<li>
+<p><a href="./DVFS/HMP-DVFS-ToDo.html">HMP Models (TODO) --- Details ---</a></p>
+</li>
+</ul>
+<h2 id="appendix-a-hmp-product-related-improvements-on-eas">Appendix A: HMP-Product-related improvements on EAS</h2>
+<p><a href="./DVFS/HMP-EAS-Improvements.html">HMP-EAS-Improvements (First-Draft)  --- Details ---</a></p>
+<h2 id="appendix-b-tools-for-power-monitoring-andor-power-controlling">Appendix B: Tools for Power Monitoring and/or Power Controlling</h2>
+<p>See Vendors Folder</p>
+<p>CPU</p>
+<ul>
+<li>RAPL-Running Average Power Limit (Intel)
+<ul>
+<li>DVFS mechanism and clock throttling</li>
+<li>control and monitor power domains including PP0—CPU cores, DRAM—memory, and PKG—representing the whole CPU socket <a href="./Vendors/Intel-RAPL-2022-Krzywaniak.pdf">see 2022</a> to dynamically adjust frequency scaling <a href="./Vendors/Intel-RAPL-powercap.pdf">see Powercap</a></li>
+</ul>
+</li>
+<li>APM-Application Performance Monitoring (AMD)</li>
+<li>EnergyScale (IBM)</li>
+</ul>
+<p>GPU</p>
+<ul>
+<li>NVML-NVIDIA Management Library / nvidia-smi8</li>
+</ul>
+<h2 id="appendix-c-survey">Appendix C: Survey</h2>
+<p>Review-Energy-Efficient-Algorithms-2010    S. Albers, Energy-efficient algorithms, Commun. ACM 53 (5) (2010) 86–96.</p>
+<p><a href="./Survey/Survey-Algorithms-for-DynamicSpeedScaling-2011.pdf">Survey-DVFS-2011</a>   S. Albers, Algorithms for dynamic speed scaling, in: Proceedings of International Symposium on Theoretical Aspects of Computer Science (STACS), 2011,  pp. 1–11.</p>
+<p><a href="./Survey/Survey-EAS-for-HPCS-2023.pdf">Survey-EAS-for-HPCS-2023</a>  Energy-Aware Scheduling for High-Performance Computing Systems: A Survey (2023)</p>
+<p>Survey-2014-ORNL-Energy-Embedded</p>
+<h3 id="feature-article-on-utilization">Feature Article on Utilization</h3>
+<p>2019-Energy-Aware_Core_Switching_for_Mobile_Devices_with_a_Heterogeneous_Multicore_Processor</p>
+<ul>
+<li>Frequency vs Utilization (conflicting&gt;)</li>
+<li>Need to be careful when there are no jobs, could be a lower untilization than expected.</li>
+</ul>
+
+            
+            
+        </body>
+        </html>
